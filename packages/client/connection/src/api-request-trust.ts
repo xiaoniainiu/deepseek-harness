@@ -109,14 +109,19 @@ export function isTrustedApiRequest(request: ApiTrustRequest, trustedHosts: read
   // Cross-site fence: modern browsers label the initiator relationship on
   // every fetch; an explicit cross-site marker is refused regardless of Origin.
   if (header(request.headers, 'sec-fetch-site') === 'cross-site') return false
-  // Origin fence: when a browser attaches an Origin it must be exactly this
-  // authority (compared through the same normalization as the Host). Absent
-  // Origin is fine — the Host fence above already bound the request. The
-  // literal "null" (sandboxed iframes, file: pages) is an opaque origin, refused.
+  // Origin fence: when a browser attaches an Origin it must name the same host
+  // as the Host header. Hostnames are compared (not host:port) because Chrome
+  // serializes the Origin of loopback origins without the port (`http://127.0.0.1`
+  // for a page at `http://127.0.0.1:3080`), so a port-exact comparison would
+  // refuse every same-origin browser request. The Host fence above already
+  // bound the request to a loopback/trusted hostname, and cross-site is a
+  // different hostname, so the port adds no defense here. Absent Origin is fine
+  // — the Host fence already bound the request. The literal "null" (sandboxed
+  // iframes, file: pages) is an opaque origin, refused.
   const origin = header(request.headers, 'origin')
   if (origin === undefined) return true
   try {
-    return new URL(origin).host === hostUrl.host
+    return new URL(origin).hostname === hostUrl.hostname
   } catch {
     return false
   }

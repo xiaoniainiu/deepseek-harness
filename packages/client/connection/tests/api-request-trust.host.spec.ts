@@ -68,6 +68,23 @@ describe('isTrustedApiRequest', () => {
     expect(isTrustedApiRequest(request({ host: 'localhost:3080', 'sec-fetch-site': 'same-origin' }), [])).toBe(true)
   })
 
+  it('accepts Chrome loopback Origins that omit the port', () => {
+    // Chrome serializes loopback origins without the port, so a page at
+    // http://127.0.0.1:3080 sends `Origin: http://127.0.0.1` while the Host
+    // header keeps `127.0.0.1:3080`. The Origin fence compares hostnames, so
+    // the port-less form is still the same host.
+    expect(isTrustedApiRequest(request({
+      host: '127.0.0.1:3080',
+      origin: 'http://127.0.0.1',
+      'sec-fetch-site': 'same-origin',
+    }), [])).toBe(true)
+    expect(isTrustedApiRequest(request({
+      host: 'localhost:3080',
+      origin: 'http://localhost',
+      'sec-fetch-site': 'same-origin',
+    }), [])).toBe(true)
+  })
+
   it('assertTrustedAuthority accepts bare authorities and throws on anything more', () => {
     for (const entry of ['harness.internal', 'harness.internal:3080', 'HARNESS.internal:80', '10.0.0.9', '[::1]:3080']) {
       expect(() => { assertTrustedAuthority(entry) }).not.toThrow()
