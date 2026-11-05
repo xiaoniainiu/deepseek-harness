@@ -1,0 +1,115 @@
+{
+  "currentPhase": "0.5",
+  "previousPhase": null,
+  "mode": "full",
+  "requirementLevel": null,
+  "requirement": "",
+  "createdAt": "",
+  "phases": {
+    "0.5": {"status": "pending", "startedAt": null, "completedAt": null, "artifacts": [], "skipReason": null},
+    "1":   {"status": "pending", "startedAt": null, "completedAt": null, "artifacts": []},
+    "2":   {"status": "pending", "startedAt": null, "completedAt": null, "artifacts": []},
+    "2.3": {"status": "pending", "startedAt": null, "completedAt": null, "artifacts": [], "skipReason": null},
+    "2.5": {"status": "pending", "startedAt": null, "completedAt": null, "artifacts": [], "skipReason": null},
+    "3":   {"status": "pending", "startedAt": null, "completedAt": null, "artifacts": []},
+    "4":   {"status": "pending", "startedAt": null, "completedAt": null, "artifacts": []},
+    "5":   {"status": "pending", "startedAt": null, "completedAt": null, "artifacts": []},
+    "6":   {"status": "pending", "startedAt": null, "completedAt": null, "artifacts": []},
+    "6.5": {"status": "pending", "startedAt": null, "completedAt": null, "artifacts": []},
+    "7":   {"status": "pending", "startedAt": null, "completedAt": null, "artifacts": []},
+    "7.5": {"status": "pending", "startedAt": null, "completedAt": null, "artifacts": []},
+    "8":   {"status": "pending", "startedAt": null, "completedAt": null, "artifacts": []},
+    "9":   {"status": "pending", "startedAt": null, "completedAt": null, "artifacts": []},
+    "10":  {"status": "pending", "startedAt": null, "completedAt": null, "artifacts": []}
+  },
+  "gates": {
+    "H1":   {"status": "pending", "confirmedAt": null, "confidenceScore": null, "autoApproved": false},
+    "H2":   {"status": "pending", "confirmedAt": null, "confidenceScore": null, "autoApproved": false},
+    "H2.3": {"status": "pending", "confirmedAt": null, "confidenceScore": null, "autoApproved": false},
+    "H3":   {"status": "pending", "confirmedAt": null, "confidenceScore": null, "autoApproved": false},
+    "H4":   {"status": "pending", "confirmedAt": null, "confidenceScore": null, "autoApproved": false},
+    "H5":   {"status": "pending", "confirmedAt": null, "confidenceScore": null, "autoApproved": false}
+  },
+  "taskLock": {
+    "activeTaskId": null,
+    "startedAt": null,
+    "lastCommitSha": null
+  },
+  "bugQueue": {
+    "mode": "sequential",
+    "items": [],
+    "activeIndex": 0,
+    "_doc": "多 bug 修复强制串行：每个 bug 独立走 Phase 1→3→9→10 mini-cycle。activeIndex 只能递增——当前 bug status 必须到 archived 才能开始下一个。"
+  },
+  "trust": {
+    "consecutivePasses": 0,
+    "lastResetAt": null,
+    "lastResetReason": null
+  },
+  "expertContext": {
+    "frontend": {
+      "designDecisions": [],
+      "crossPhaseNotes": []
+    },
+    "backend": {
+      "designDecisions": [],
+      "crossPhaseNotes": []
+    }
+  },
+  "taskAssignment": {},
+  "strategyContext": {
+    "okr": null,
+    "kr": null,
+    "weight": null,
+    "module": null
+  },
+  "chain": [],
+  "pendingSignals": [],
+  "evolutionSignals": {
+    "genes_injected": [],
+    "genes_actually_used": [],
+    "genes_prevented_bug": [],
+    "aps_matched": [],
+    "aps_prevented_bug": [],
+    "checkpoint_deviations": 0,
+    "living_spec_deltas": 0,
+    "spec_validation_errors": 0,
+    "spec_validation_warnings": 0
+  },
+  "knowledgeSnapshot": {
+    "genes_injected": [],
+    "cases_loaded": [],
+    "aps_matched": [],
+    "warnings_issued": 0,
+    "total_chars_loaded": 0,
+    "injection_timestamp": null,
+    "effectiveness_feedback": null
+  },
+  "executionTrace": {
+    "steps": [],
+    "patternSignature": "",
+    "totalToolCalls": 0,
+    "totalTextBlocks": 0,
+    "toolRatio": 0.0,
+    "rhythmNudges": 0,
+    "consecutiveNoToolTurns": 0,
+    "failedApproaches": [],
+    "observations": [],
+    "environmentFindings": []
+  },
+  "phaseHandoff": {},
+  "contextMetrics": {
+    "preflight_count": 0,
+    "confidence_gate_triggers": 0,
+    "dynamic_load_count": 0,
+    "eviction_count": 0,
+    "escalation_count": 0,
+    "guess_fix_count": 0,
+    "context_hit_rate": null,
+    "activeContext": [],
+    "preflight_log": [],
+    "dynamic_load_log": [],
+    "eviction_log": [],
+    "events": []
+  }
+}

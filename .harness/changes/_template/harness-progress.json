@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "requirement": "{{REQUIREMENT_ID}}",
+  "createdAt": "{{CREATED_AT}}",
+  "updatedAt": "{{CREATED_AT}}",
+  "summary": {
+    "total": 0,
+    "done": 0,
+    "failed": 0,
+    "pending": 0,
+    "blocked": 0,
+    "passRate": 0
+  },
+  "features": [
+    {
+      "id": "T-001",
+      "title": "从 plan.json 自动填充，Agent 不可修改",
+      "acceptanceCriteria": ["从 plan.json 自动填充，Agent 不可修改"],
+      "status": "pending",
+      "passes": false,
+      "evidence": null,
+      "updatedAt": null
+    }
+  ]
+}

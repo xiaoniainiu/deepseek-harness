@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "project": "deepseek-harness",
+  "techStack": "TypeScript/Node.js",
+  "projectScale": "56 sql files / 3 modules",
+  "architecture": "Monolith",
+  "deployModel": "GitLab CI + Docker",
+  "defaultTool": "claude",
+  "domain": "_blank",
+  "domainPackPath": "",
+  "qualityCommands": {
+    "compile": "npx tsc --noEmit",
+    "test": "npx vitest run",
+    "lint": ""
+  },
+  "maxTaskRetries": 3,
+  "safetyLimit": 200,
+  "reviewMode": true,
+  "harnessSource": "/Users/liuguangping/.claude/harness"
+}

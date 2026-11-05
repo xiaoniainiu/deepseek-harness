@@ -1,0 +1,31 @@
+{
+  "project": "{{PROJECT_NAME}}",
+  "branchName": "feat/{{BRANCH_NAME}}",
+  "description": "{{需求描述}}",
+  "qualityCommands": {
+    "compile": "{{编译命令}}",
+    "test": "{{测试命令}}",
+    "lint": "{{lint 命令}}"
+  },
+  "tasks": [
+    {
+      "id": "T-001",
+      "title": "{{任务标题}}",
+      "type": "backend",
+      "description": "{{自包含任务描述：起始状态、目标行为、关键文件}}",
+      "acceptanceCriteria": [
+        "{{可观察、可判定的验收标准1}}",
+        "{{验收标准2}}"
+      ],
+      "testDescription": "{{要写的测试内容}}",
+      "testFile": "{{测试文件路径}}",
+      "filesToModify": ["{{文件路径1}}", "{{文件路径2}}"],
+      "verificationCommands": ["{{验证命令1}}", "{{验证命令2}}"],
+      "context": "{{框架、ORM、关键文件位置、既有模式引用}}",
+      "dependsOn": [],
+      "complexity": "simple",
+      "priority": 1,
+      "status": "pending"
+    }
+  ]
+}
