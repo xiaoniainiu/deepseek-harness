@@ -1,6 +1,22 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-10-30-loopback-origin-hostname-trust.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/bug-fix/2026-10-30-loopback-origin-hostname-trust.md
-2026-10-30-loopback-origin-hostname-trust.md: a15fbf029834157bf47fd63c357c8213fb6d0f19
-2026-10-30-loopback-origin-hostname-trust.zh.md: 1df934429d11ebca93a14a4d41332df8b6ec98ad
+/agent-note-compare-the-api-origin-fence-by-hostname-not-host-port:
+  en: 4529cc1c3b8428bd
+  zh: 827c7a9d01ad7f5a
+/agent-note-compare-the-api-origin-fence-by-hostname-not-host-port/problem:
+  en: d9ec8cb73b14352f
+  zh: f5e32452abe9fb0e
+/agent-note-compare-the-api-origin-fence-by-hostname-not-host-port/decision:
+  en: 4955ab69fe5b9936
+  zh: c2894fc94560abcb
+/agent-note-compare-the-api-origin-fence-by-hostname-not-host-port/alternatives-considered:
+  en: 8b507270545a88a9
+  zh: 8f694ea7b0bc1723
+/agent-note-compare-the-api-origin-fence-by-hostname-not-host-port/verification:
+  en: b826daba1d0961d1
+  zh: 0f3283ecae68c878
+/agent-note-compare-the-api-origin-fence-by-hostname-not-host-port/consequences:
+  en: a0c1250eb4cff926
+  zh: 89cc4b6e5f8f64dc

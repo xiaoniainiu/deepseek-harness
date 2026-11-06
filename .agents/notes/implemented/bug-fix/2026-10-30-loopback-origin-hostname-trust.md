@@ -10,7 +10,7 @@ The `/api` browser-trust fence rejected every same-origin request from a page se
 
 ## Decision
 
-The Origin fence compares the origin's hostname to the Host authority's hostname (`new URL(origin).hostname === hostUrl.hostname`) instead of their host:port forms. The Host fence, which runs first, already binds the request to a loopback or declared trusted hostname; the Origin fence's job is to reject a request whose browser-marked initiator names a different host, and a different host is a different hostname. The port adds no defense against either DNS rebinding or cross-site requests, so dropping it from the comparison changes no protected outcome.
+The Origin fence always compares the origin's hostname to the Host authority's hostname; a different hostname is refused as a cross-site request. The port is then compared only for non-loopback origins. Chrome omits the port on loopback Origins (`http://127.0.0.1` for a page at `http://127.0.0.1:3080`), and every loopback port is the same local machine, so the port adds no defense there. A non-loopback trusted host still distinguishes origins by port — a page on `harness.internal:444` is cross-origin to a listener on `:443` — so the port is compared after default-port normalization.
 
 ## Alternatives considered
 
@@ -22,8 +22,8 @@ The Origin fence compares the origin's hostname to the Host authority's hostname
 
 ## Verification
 
-`api-request-trust.host.spec.ts` covers the port-less loopback Origin form for `127.0.0.1` and `localhost`, and the existing cross-site and rebinding cases still refuse. The change is a one-line hostname comparison with no new package surface.
+`api-request-trust.host.spec.ts` covers the port-less loopback Origin form for `127.0.0.1` and `localhost`, and the existing cross-site, rebinding, and non-loopback port-difference cases still refuse.
 
 ## Consequences
 
-Same-origin loopback and trusted-host browser requests are accepted whether or not the Origin includes the port, matching Chrome and every other browser that omits the default port. Cross-origin and cross-host requests remain refused because their hostname differs. The Origin fence is now hostname-scoped like the Host fence, and exact port matching for trusted authorities remains the Host fence's responsibility, unchanged.
+Same-origin loopback browser requests are accepted whether or not the Origin includes the port, matching Chrome. Non-loopback origins still match their host and port, so a different port on a trusted host remains refused. Cross-origin and cross-host requests remain refused because their hostname differs.

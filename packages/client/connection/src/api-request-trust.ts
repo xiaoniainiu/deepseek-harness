@@ -172,5 +172,12 @@ function isSameAuthorityOrigin(origin: string, host: string): boolean {
       : undefined
   if (scheme === undefined) return false
   const hostUrl = parseAuthority(host, scheme)
-  return hostUrl !== undefined && originUrl.host === hostUrl.host
+  if (hostUrl === undefined) return false
+  // Hostname must always match (the Host fence bound the request to a loopback
+  // or trusted hostname, and cross-site is a different hostname). Chrome omits
+  // the port on loopback Origins, so the port is only compared for non-loopback
+  // hosts, where it still distinguishes origins.
+  if (originUrl.hostname !== hostUrl.hostname) return false
+  if (isLoopbackHostname(originUrl.hostname)) return true
+  return originUrl.host === hostUrl.host
 }

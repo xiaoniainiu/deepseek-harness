@@ -10,7 +10,7 @@ Status: implemented
 
 ## Decision
 
-Origin 围栏改为比较来源的主机名与 Host 授权的主机名（`new URL(origin).hostname === hostUrl.hostname`），而不是它们的 host:port 形式。先执行的 Host 围栏已经把请求绑定到回环或已声明的受信主机名；Origin 围栏的职责是拒绝浏览器标记的发起方指向不同主机的请求，而不同主机就是不同主机名。端口对 DNS rebinding 和跨站请求都不提供额外防御，因此从比较中去掉端口不会改变任何受保护的结果。
+Origin 围栏始终比较来源的主机名与 Host 授权的主机名，主机名不同即作为跨站请求拒绝。端口只在非回环来源上再比较。Chrome 会省略回环来源的端口（`http://127.0.0.1:3080` 页面发送 `http://127.0.0.1`），且回环的每个端口都是同一台本机，因此端口在此不提供额外防御。非回环的受信主机仍用端口区分来源——`harness.internal:444` 上的页面对 `:443` 的监听器是跨源的——所以端口在默认端口归一化后再比较。
 
 ## Alternatives considered
 
@@ -22,8 +22,8 @@ Origin 围栏改为比较来源的主机名与 Host 授权的主机名（`new UR
 
 ## Verification
 
-`api-request-trust.host.spec.ts` 覆盖了 `127.0.0.1` 和 `localhost` 的无端口回环 Origin 形式，现有的跨站与 rebinding 用例仍然拒绝。改动是一行主机名比较，没有新增包接口。
+`api-request-trust.host.spec.ts` 覆盖了 `127.0.0.1` 和 `localhost` 的无端口回环 Origin 形式，现有的跨站、rebinding 与非回环端口差异用例仍然拒绝。
 
 ## Consequences
 
-同源的回环与受信主机浏览器请求无论 Origin 是否带端口都会被接受，这与 Chrome 及其他省略默认端口的浏览器一致。跨源与跨主机请求仍被拒绝，因为其主机名不同。Origin 围栏现在与 Host 围栏一样以主机名为粒度，受信授权的精确端口匹配仍是 Host 围栏的职责，保持不变。
+同源的回环浏览器请求无论 Origin 是否带端口都会被接受，这与 Chrome 一致。非回环来源仍匹配主机与端口，因此受信主机上的不同端口仍被拒绝。跨源与跨主机请求仍因主机名不同而被拒绝。

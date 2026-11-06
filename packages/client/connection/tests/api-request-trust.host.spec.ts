@@ -114,6 +114,23 @@ describe('isTrustedApiRequest', () => {
     expect(isTrustedApiRequest(request({ host: 'localhost:3080', 'sec-fetch-site': 'same-origin' }), [])).toBe(true)
   })
 
+  it('accepts Chrome loopback Origins that omit the port', () => {
+    // Chrome serializes loopback origins without the port, so a page at
+    // http://127.0.0.1:3080 sends `Origin: http://127.0.0.1` while the Host
+    // header keeps `127.0.0.1:3080`. The Origin fence compares hostnames for
+    // loopback, so the port-less form is still the same host.
+    expect(isTrustedApiRequest(request({
+      host: '127.0.0.1:3080',
+      origin: 'http://127.0.0.1',
+      'sec-fetch-site': 'same-origin',
+    }), [])).toBe(true)
+    expect(isTrustedApiRequest(request({
+      host: 'localhost:3080',
+      origin: 'http://localhost',
+      'sec-fetch-site': 'same-origin',
+    }), [])).toBe(true)
+  })
+
   it('reads Fetch Headers while preserving absent browser markers', () => {
     expect(isTrustedApiRequest({ headers: new Headers({ host: '127.0.0.1:3080' }) }, [])).toBe(true)
     expect(isTrustedApiRequest({
